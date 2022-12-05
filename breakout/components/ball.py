@@ -11,9 +11,9 @@ class Ball(MySprite):
     ):
         super().__init__(**kwargs)
 
-        self.image = pygame.Surface((width, height))
+        self.original_image = pygame.image.load("breakout/components/img/ball.png")
+        self.image = pygame.transform.scale(self.original_image, (width, height))
         self.rect = self.image.get_rect()
-        self.image.fill(bgcolor)
         pygame.draw.circle(self.image, color, (width / 2, height / 2), width / 2)
 
         self.speed = 0

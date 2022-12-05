@@ -8,8 +8,8 @@ class Paddle(MySprite):
 
     def __init__(self, width, height, color=(0, 0, 0), **kwargs):
         super().__init__(**kwargs)
-        self.image = pygame.Surface((width, height))
-        self.image.fill(color)
+        self.original_image = pygame.image.load("breakout/components/img/paddle.png")
+        self.image = pygame.transform.scale(self.original_image, (width, height))
         self.rect = self.image.get_rect()
 
         if self.limits:
