@@ -18,8 +18,8 @@ class Board():
         scoreList = []
         for item in self._score:
             scoreList.append(Score(item["name"],item["score"],item["date"]))
-        if sorted_by == "name":
-            scoreList=sorted(scoreList, key=operator.attrgetter("score"))
+        if sorted_by == "score":
+            scoreList=sorted(scoreList, key=operator.attrgetter("score"), reverse=True)
         return scoreList
 
 
