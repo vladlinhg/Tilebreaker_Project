@@ -5,7 +5,6 @@ from screens import BaseScreen
 from ..components import Paddle, Ball, TileGroup
 from components import TextBox
 
-
 class GameScreen(BaseScreen):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -26,6 +25,10 @@ class GameScreen(BaseScreen):
         self.sprites = pygame.sprite.Group()
         self.sprites.add(self.paddle)
         self.sprites.add(self.ball)
+        
+        # Record score and level
+        self.score = 0
+        self.level = 1
 
     def update(self):
  
@@ -44,6 +47,15 @@ class GameScreen(BaseScreen):
         if self.ball.rect.bottom > self.paddle.rect.top and not caught_the_ball:
             self.running = False
             self.next_screen = "game_over"
+        
+        if not self.tiles:
+            self.level += 1
+            if self.level <= 3:
+                self.tiles = TileGroup(self.level, tile_width=120, tile_height=30)
+                self.tiles.update()
+            self.running = False
+            self.next_screen = "game_over"
+
 
     def draw(self):
         self.window.fill((255, 255, 255))
