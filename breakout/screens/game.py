@@ -1,7 +1,10 @@
 import random
 import pygame
 import time
+from models.board import Board 
+from models.score import Score
 from screens import BaseScreen
+
 
 from ..components import Paddle, Ball, TileGroup
 from components import TextBox
@@ -64,6 +67,7 @@ class GameScreen(BaseScreen):
             else:
                 end_time = time.time()
                 self.score = self.count_score(self.start_time, end_time, self.level)
+                self.write_score()
                 self.running = False
                 self.next_screen = "game_win"
             
@@ -74,6 +78,13 @@ class GameScreen(BaseScreen):
 
         return int(score) 
 
+    def write_score(self):
+        board = Board("score.json")
+        score = Score("Player1", self.score)
+        board.add_score(score)
+        board.save()
+
+        
 
 
     def draw(self):
