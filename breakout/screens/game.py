@@ -80,9 +80,7 @@ class GameScreen(BaseScreen):
 
     def write_score(self):
         board = Board("score.json")
-        score = Score("Player1", self.score)
-        board.add_score(score)
-        board.save()
+        board.add_score("Player1", self.score)
 
         
 

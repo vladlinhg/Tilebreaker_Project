@@ -1,7 +1,7 @@
 from datetime import datetime
 
 class Score():
-    def __init__(self,name,score,date):
+    def __init__(self,name,score,date=None):
         self.name = name
         self.score = score
         if date:

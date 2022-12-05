@@ -1,6 +1,7 @@
 from models.score import Score
 import operator
 import json
+import datetime
 
 class Board():
     def __init__(self,filename):
@@ -32,8 +33,9 @@ class Board():
 
 
 
-    def add_score(self, score: Score):
-        self._score.append({"name": score.name,"score": score.score,"date": score.date})
+    def add_score(self, name, score):
+        date = datetime.now().strftime("%d/%m/%Y %H:%M:%S")
+        self._score.append({"name": name,"score": score,"date": date})
         self.save()
         return True
 
