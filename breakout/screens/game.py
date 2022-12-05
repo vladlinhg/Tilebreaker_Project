@@ -93,7 +93,7 @@ class GameScreen(BaseScreen):
     def manage_event(self, event):
         if event.type == pygame.MOUSEBUTTONDOWN:
             self.running = False
-            self.next_screen = "welcome"
+            self.next_screen = "game_win.py"
 
         if event.type == pygame.KEYDOWN:
             if event.key == pygame.K_SPACE:

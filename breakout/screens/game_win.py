@@ -3,7 +3,7 @@ from screens import BaseScreen
 from components import TextBox
 
 
-class GameOverScreen(BaseScreen):
+class GameWinScreen(BaseScreen):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.sprites = pygame.sprite.Group()
