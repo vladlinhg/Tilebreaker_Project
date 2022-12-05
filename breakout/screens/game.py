@@ -1,9 +1,12 @@
 import random
 import pygame
+import time
 from screens import BaseScreen
 
 from ..components import Paddle, Ball, TileGroup
 from components import TextBox
+
+global start_time, end_time
 
 class GameScreen(BaseScreen):
     def __init__(self, *args, **kwargs):
@@ -30,6 +33,8 @@ class GameScreen(BaseScreen):
         self.score = 0
         self.level = 1
 
+        start_time = time.time()
+
     def update(self):
  
         keys = pygame.key.get_pressed()
@@ -47,6 +52,8 @@ class GameScreen(BaseScreen):
         if self.ball.rect.bottom > self.paddle.rect.top and not caught_the_ball:
             self.running = False
             self.next_screen = "game_over"
+            end_time = time.time()
+            self.score = self.count_score(start_time, end_time, self.level)
         
         if not self.tiles:
             self.level += 1
@@ -55,6 +62,15 @@ class GameScreen(BaseScreen):
                 self.tiles.update()
             self.running = False
             self.next_screen = "game_over"
+            end_time = time.time()
+            self.score = self.count_score(start_time, end_time, self.level)
+
+    def count_score(self, start, end, level):
+        total = end - start
+        score = 45*level/total
+
+        return int(score) 
+
 
 
     def draw(self):
