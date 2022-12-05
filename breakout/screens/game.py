@@ -6,8 +6,6 @@ from screens import BaseScreen
 from ..components import Paddle, Ball, TileGroup
 from components import TextBox
 
-global start_time, end_time
-
 class GameScreen(BaseScreen):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -24,16 +22,18 @@ class GameScreen(BaseScreen):
         # Create the tiles
         self.tiles = TileGroup(tile_width=120, tile_height=30)
 
-        # Put all sprites in the group
-        self.sprites = pygame.sprite.Group()
-        self.sprites.add(self.paddle)
-        self.sprites.add(self.ball)
+        
         
         # Record score and level
         self.score = 0
         self.level = 1
+        self.start_time = time.time()
 
-        start_time = time.time()
+        # Put all sprites in the group
+        self.sprites = pygame.sprite.Group()
+        self.sprites.add(self.paddle)
+        self.sprites.add(self.ball)
+   
 
     def update(self):
  
@@ -52,22 +52,25 @@ class GameScreen(BaseScreen):
         if self.ball.rect.bottom > self.paddle.rect.top and not caught_the_ball:
             self.running = False
             self.next_screen = "game_over"
-            end_time = time.time()
-            self.score = self.count_score(start_time, end_time, self.level)
+            
+            
         
         if not self.tiles:
             self.level += 1
+            
             if self.level <= 3:
                 self.tiles = TileGroup(self.level, tile_width=120, tile_height=30)
                 self.tiles.update()
-            self.running = False
-            self.next_screen = "game_over"
-            end_time = time.time()
-            self.score = self.count_score(start_time, end_time, self.level)
+            else:
+                end_time = time.time()
+                self.score = self.count_score(self.start_time, end_time, self.level)
+                self.running = False
+                self.next_screen = "game_win"
+            
 
     def count_score(self, start, end, level):
         total = end - start
-        score = 45*level/total
+        score = 10000*(level-1)/total
 
         return int(score) 
 

@@ -14,8 +14,8 @@ class WelcomeScreen(BaseScreen):
 
     def draw(self):
         self.window.fill((255, 255, 255))
-        self.button.rect.x = 200
-        self.button.rect.y = 400
+        self.button.rect.x = 300
+        self.button.rect.y = 550
         self.sprites.draw(self.window)
 
     def update(self):
